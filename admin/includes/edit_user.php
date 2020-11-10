@@ -66,21 +66,20 @@ if (isset($_GET['p_id'])) {
         <input value="<?php echo $post_title; ?>" type="text" class="form-control" name="post_title">
     </div>
     <div class="form-group">
-        <label for="title">Post Category</label>
-        <br>
-        <select name="post_category" id="post_category">
+        <label for="user_role"></label>
+        <select name="user_role" id="user_role">
             <?php
 
-            $query = "SELECT * FROM categories";
-            $select_categories = mysqli_query($connection, $query);
+            $query = "SELECT * FROM users";
+            $select_users = mysqli_query($connection, $query);
 
-            confirm($select_categories);
+            confirm($select_users);
 
-            while ($row = mysqli_fetch_assoc(($select_categories))) {
-                $cat_id = $row['cat_id'];
-                $cat_title = $row['cat_title'];
+            while ($row = mysqli_fetch_assoc(($select_users))) {
+                $user_id = $row['user_id'];
+                $user_role = $row['user_role'];
 
-                echo "<option value='{$cat_id}'>{$cat_title}</option>";
+                echo "<option value='{$user_id}'>{$user_role}</option>";
             }
 
             ?>
