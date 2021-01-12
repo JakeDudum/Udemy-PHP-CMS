@@ -54,6 +54,8 @@ if (isset($_GET['p_id'])) {
 
         $update_post = mysqli_query($connection, $query);
         confirm($update_post);
+
+        echo "<p class='bg-success'>Post Updated. <a href='../post.php?p_id={$the_post_id}'> View Post</a> or <a href='posts.php'> Edit More Posts</a></p>";
     }
 }
 
@@ -114,7 +116,7 @@ if (isset($_GET['p_id'])) {
     </div>
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea value="<?php echo $post_content; ?>" type="text" class="form-control" name="post_content"></textarea>
+        <textarea type="text" class="form-control" name="post_content" id="body"><?php echo $post_content; ?></textarea>
     </div>
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="update_post" value="Update Post">
