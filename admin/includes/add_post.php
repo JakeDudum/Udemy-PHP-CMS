@@ -68,7 +68,7 @@ if (isset($_POST['create_post'])) {
     </div>
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea type="text" class="form-control" name="post_content"></textarea>
+        <textarea type="text" class="form-control" name="post_content" id="body"></textarea>
     </div>
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="create_post" value="Publish Post">
