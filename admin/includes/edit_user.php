@@ -25,16 +25,20 @@ if (isset($_GET['edit_user'])) {
         $user_email = $_POST['user_email'];
         $user_password = $_POST['user_password'];
 
-        $query = "SELECT randSalt FROM users";
-        $select_randsalt_query = mysqli_query($connection, $query);
+        if (empty($user_password)) {
 
-        if(!$select_randsalt_query) {
-            die("Query Failed" . mysqli_error($connection));
+            $query_password = "SELECT user_password FROM users WHERE user_id = $the_user_id";
+            $get_user_query = mysqli_query($connection, $query_password);
+            confirm($get_user_query);
+
+            $row = mysqli_fetch_array($get_user_query);
+
+            $hashed_password = $row['user_password'];
+
+        } else {
+            $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));;
         }
 
-        $row = mysqli_fetch_array($select_randsalt_query);
-        $salt = $row['randSalt'];
-        $hashed_password = crypt($user_password, $salt);
 
         $query = "UPDATE users SET ";
         $query .= "user_firstname = '{$user_firstname}', ";
@@ -47,7 +51,11 @@ if (isset($_GET['edit_user'])) {
 
         $edit_user_query = mysqli_query($connection, $query);
         confirm($edit_user_query);
+
+        echo "User Updated" . " <a href='users.php'>View Users</a>";
     }
+} else {
+    header("Location: index.php");
 }
 
 ?>
@@ -62,7 +70,7 @@ if (isset($_GET['edit_user'])) {
         <input type="text" value='<?php echo $user_lastname; ?>' class="form-control" name="user_lastname">
     </div>
     <select name="user_role" id="user_role">
-        <option value=<?php echo $user_role; ?> ><?php echo $user_role; ?></option>
+        <option value=<?php echo $user_role; ?>><?php echo $user_role; ?></option>
         <?php
 
         if ($user_role == 'admin') {
@@ -87,7 +95,7 @@ if (isset($_GET['edit_user'])) {
     </div>
     <div class="form-group">
         <label for="post_content">Password</label>
-        <input type="password" value=<?php echo $user_password; ?> class="form-control" name="user_password">
+        <input autocomplete="off" placeholder="Leave Blank to keep Current Password" type="password" class="form-control" name="user_password">
     </div>
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="update_user" value="Update User">
