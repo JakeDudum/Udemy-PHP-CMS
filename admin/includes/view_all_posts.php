@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_POST['checkBoxArray'])) {
+if (isset(escape($_POST['checkBoxArray']))) {
 
     foreach ($_POST['checkBoxArray'] as $postValueId) {
-        $bulk_options = $_POST['bulk_options'];
+        $bulk_options = escape($_POST['bulk_options']);
 
         switch ($bulk_options) {
             case 'published':
@@ -145,17 +145,17 @@ if (isset($_POST['checkBoxArray'])) {
 
 <?php
 
-if (isset($_GET['delete'])) {
+if (isset(escape($_GET['delete']))) {
 
-    $the_post_id = $_GET['delete'];
+    $the_post_id = escape($_GET['delete']);
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
     $delete_query = mysqli_query($connection, $query);
     header("Location: posts.php");
 }
 
-if (isset($_GET['reset'])) {
+if (isset(escape($_GET['reset']))) {
 
-    $the_post_id = $_GET['reset'];
+    $the_post_id = escape($_GET['reset']);
     $query = "UPDATE posts SET post_views_count = 0 WHERE post_id = {$the_post_id} ";
     $reset_query = mysqli_query($connection, $query);
     header("Location: posts.php");

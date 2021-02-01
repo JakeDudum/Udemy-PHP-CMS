@@ -1,11 +1,11 @@
 <?php
-if (isset($_POST['create_user'])) {
-    $username = $_POST['username'];
-    $user_firstname = $_POST['user_firstname'];
-    $user_lastname = $_POST['user_lastname'];
-    $user_email = $_POST['user_email'];
-    $user_role = $_POST['user_role'];
-    $user_password = $_POST['user_password'];
+if (isset(escape($_POST['create_user']))) {
+    $username = escape($_POST['username']);
+    $user_firstname = escape($_POST['user_firstname']);
+    $user_lastname = escape($_POST['user_lastname']);
+    $user_email = escape($_POST['user_email']);
+    $user_role = escape($_POST['user_role']);
+    $user_password = escape($_POST['user_password']);
 
     // move_uploaded_file($post_image_temp, "../images/$post_image");
 

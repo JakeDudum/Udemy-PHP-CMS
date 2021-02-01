@@ -2,9 +2,9 @@
 
 <?php
 
-if (isset($_SESSION['username'])) {
+if (isset(escape($_SESSION['username']))) {
 
-    $username = $_SESSION['username'];
+    $username = escape($_SESSION['username']);
 
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     $select_user_profile_query = mysqli_query($connection, $query);
@@ -19,12 +19,12 @@ if (isset($_SESSION['username'])) {
         $user_image = $row['user_image'];
     }
 
-    if (isset($_POST['update_user'])) {
-        $user_firstname = $_POST['user_firstname'];
-        $user_lastname = $_POST['user_lastname'];
-        $username = $_POST['username'];
-        $user_email = $_POST['user_email'];
-        $user_password = $_POST['user_password'];
+    if (isset(escape($_POST['update_user']))) {
+        $user_firstname = escape($_POST['user_firstname']);
+        $user_lastname = escape($_POST['user_lastname']);
+        $username = escape($_POST['username']);
+        $user_email = escape($_POST['user_email']);
+        $user_password = escape($_POST['user_password']);
 
         if (empty($user_password)) {
 
