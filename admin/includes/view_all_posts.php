@@ -30,7 +30,7 @@ if (isset($_POST['checkBoxArray'])) {
 
                 while ($row = mysqli_fetch_array($select_post_query)) {
                     $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_user = $row['post_user'];
                     $post_category_id = $row['post_category_id'];
                     $post_status = $row['post_status'];
                     $post_image = $row['post_image'];
@@ -39,8 +39,8 @@ if (isset($_POST['checkBoxArray'])) {
                     $post_date = $row['post_date'];
                 }
 
-                $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_status) ";
-                $query .= "VALUES({$post_category_id}, '{$post_title}', '{$post_author}', now(), '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_status}')";
+                $query = "INSERT INTO posts(post_category_id, post_title, post_user, post_date, post_image, post_content, post_tags, post_status) ";
+                $query .= "VALUES({$post_category_id}, '{$post_title}', '{$post_user}', now(), '{$post_image}', '{$post_content}', '{$post_tags}', '{$post_status}')";
                 $copy_query = mysqli_query($connection, $query);
 
                 if (!$copy_query) {
@@ -71,7 +71,7 @@ if (isset($_POST['checkBoxArray'])) {
         <thead>
             <th><input id="selectAllBoxes" type="checkbox"></th>
             <th>Id</th>
-            <th>Author</th>
+            <th>User</th>
             <th>Title</th>
             <th>Category</th>
             <th>Status</th>
@@ -92,7 +92,7 @@ if (isset($_POST['checkBoxArray'])) {
 
             while ($row = mysqli_fetch_assoc(($select_posts))) {
                 $post_id = $row['post_id'];
-                $post_author = $row['post_author'];
+                $post_user = $row['post_user'];
                 $post_title = $row['post_title'];
                 $post_category_id = $row['post_category_id'];
                 $post_status = $row['post_status'];
@@ -109,7 +109,7 @@ if (isset($_POST['checkBoxArray'])) {
 
             <?php
                 echo "<td>$post_id</td>";
-                echo "<td>$post_author</td>";
+                echo "<td>$post_user</td>";
                 echo "<td>$post_title</td>";
 
                 $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";

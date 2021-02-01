@@ -9,19 +9,18 @@ if (isset($_GET['p_id'])) {
 
     while ($row = mysqli_fetch_assoc(($select_posts_by_id))) {
         $post_id = $row['post_id'];
-        $post_author = $row['post_author'];
+        $post_user = $row['post_user'];
         $post_title = $row['post_title'];
         $post_category_id = $row['post_category_id'];
         $post_status = $row['post_status'];
         $post_image = $row['post_image'];
         $post_content = $row['post_content'];
         $post_tags = $row['post_tags'];
-        $post_comment_count = $row['post_comment_count'];
         $post_date = $row['post_date'];
     }
 
     if (isset($_POST['update_post'])) {
-        $post_author = $_POST['post_author'];
+        $post_user = $_POST['post_user'];
         $post_title = $_POST['post_title'];
         $post_category_id = $_POST['post_category'];
         $post_status = $_POST['post_status'];
@@ -43,7 +42,7 @@ if (isset($_GET['p_id'])) {
 
         $query = "UPDATE posts SET ";
         $query .= "post_title = '{$post_title}', ";
-        $query .= "post_author = '{$post_author}', ";
+        $query .= "post_user = '{$post_user}', ";
         $query .= "post_date = now(), ";
         $query .= "post_category_id = '{$post_category_id}', ";
         $query .= "post_status = '{$post_status}', ";
@@ -89,15 +88,38 @@ if (isset($_GET['p_id'])) {
         </select>
     </div>
     <div class="form-group">
-        <label for="author">Post Author</label>
-        <input value="<?php echo $post_author; ?>" type="text" class="form-control" name="post_author">
+        <label for="title">User</label>
+        <br>
+        <select name="post_user" id="">
+            <?php
+
+            $query = "SELECT * FROM users";
+            $select_users = mysqli_query($connection, $query);
+
+            confirm($select_users);
+
+            echo "<option value='{$post_user}'>{$post_user}</option>";
+
+            while ($row = mysqli_fetch_assoc(($select_users))) {
+                $user_id = $row['user_id'];
+                $username = $row['username'];
+
+                if ($post_user != $username) {
+                    echo "<option value='{$username}'>{$username}</option>";
+                }
+            }
+
+            ?>
+        </select>
     </div>
     <div class="form-group">
+        <label for="post_status">Post Status</label>
+        <br>
         <select name="post_status" id="">
             <option value='<?php echo $post_status; ?>'><?php echo ucfirst($post_status); ?></option>
             <?php
 
-            if($post_status == 'published') {
+            if ($post_status == 'published') {
                 echo "<option value='draft'>Draft</option>";
             } else {
                 echo "<option value='published'>Publish</option>";
