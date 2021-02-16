@@ -4,31 +4,13 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $to = "jakedudum@gmail.com";
+    $subject = wordwrap($_POST['subject'], 70);
+    $body = $_POST['body'];
+    $header = "From: " . $_POST['email'];
 
-    if (!empty($username) && !empty($email) && !empty($password)) {
+    mail($to, $subject, $body, $header);
 
-        $username = $username;
-        $email = $email;
-        $password = $password;
-
-        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
-
-        $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
-        $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
-        $register_user_query = mysqli_query($connection, $query);
-        if (!$register_user_query) {
-            die("Query Failed" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
-        }
-
-        $message = "Your Resistration has been submitted";
-    } else {
-        $message = "Fields cannot be empty";
-    }
-} else {
-    $message = "";
 }
 
 ?>
@@ -46,7 +28,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-xs-6 col-xs-offset-3">
                     <div class="form-wrap">
                         <h1>Contact</h1>
-                        <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                        <form role="form" action="" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                                 <label for="email" class="sr-only">Email</label>
                                 <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
