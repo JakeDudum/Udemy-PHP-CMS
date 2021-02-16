@@ -1,5 +1,5 @@
 <?php
-if (isset(escape($_POST['create_post']))) {
+if (isset($_POST['create_post'])) {
     $post_title = escape($_POST['title']);
     $post_user = escape($_POST['post_user']);
     $post_category_id = escape($_POST['post_category']);

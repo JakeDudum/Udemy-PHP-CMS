@@ -1,6 +1,6 @@
 <?php
 
-if (isset(escape($_GET['p_id']))) {
+if (isset($_GET['p_id'])) {
 
     $the_post_id = $_GET['p_id'];
 

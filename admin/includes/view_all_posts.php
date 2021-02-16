@@ -1,6 +1,6 @@
 <?php
 
-if (isset(escape($_POST['checkBoxArray']))) {
+if (isset($_POST['checkBoxArray'])) {
 
     foreach ($_POST['checkBoxArray'] as $postValueId) {
         $bulk_options = escape($_POST['bulk_options']);
@@ -145,7 +145,7 @@ if (isset(escape($_POST['checkBoxArray']))) {
 
 <?php
 
-if (isset(escape($_GET['delete']))) {
+if (isset($_GET['delete'])) {
 
     $the_post_id = escape($_GET['delete']);
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
@@ -153,7 +153,7 @@ if (isset(escape($_GET['delete']))) {
     header("Location: posts.php");
 }
 
-if (isset(escape($_GET['reset']))) {
+if (isset($_GET['reset'])) {
 
     $the_post_id = escape($_GET['reset']);
     $query = "UPDATE posts SET post_views_count = 0 WHERE post_id = {$the_post_id} ";

@@ -17,7 +17,7 @@
             $per_page = 5;
 
             if (isset($_GET['page'])) {
-                $page = $_GET['page'];
+                $page = escape($_GET['page']);
             } else {
                 $page = "";
             }

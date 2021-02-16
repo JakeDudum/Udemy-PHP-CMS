@@ -43,7 +43,7 @@
 
 <?php
 
-if (isset(escape($_GET['change_to_admin']))) {
+if (isset($_GET['change_to_admin'])) {
 
     $the_user_id = escape($_GET['change_to_admin']);
     $query = "UPDATE users SET user_role = 'admin' WHERE user_id = $the_user_id ";
@@ -51,7 +51,7 @@ if (isset(escape($_GET['change_to_admin']))) {
     header("Location: users.php");
 }
 
-if (isset(escape($_GET['change_to_subscriber']))) {
+if (isset($_GET['change_to_subscriber'])) {
 
     $the_user_id = escape($_GET['change_to_subscriber']);
     $query = "UPDATE users SET user_role = 'subscriber' WHERE user_id = $the_user_id ";
@@ -59,7 +59,7 @@ if (isset(escape($_GET['change_to_subscriber']))) {
     header("Location: users.php");
 }
 
-if (isset(escape($_GET['delete']))) {
+if (isset($_GET['delete'])) {
 
     if (isset($_SESSION['user_role'])) {
         if ($_SESSION['user_role'] == 'admin') {

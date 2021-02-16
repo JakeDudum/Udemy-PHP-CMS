@@ -14,9 +14,9 @@
 
             <?php
 
-            if (isset($_GET['p_id'])) {
-                $the_post_id = $_GET['p_id'];
-                $the_post_user = $_GET['author'];
+            if (isset(escape($_GET['p_id']))) {
+                $the_post_id = escape($_GET['p_id']);
+                $the_post_user = escape($_GET['author']);
             }
 
             $query = "SELECT * FROM posts WHERE post_user = '{$the_post_user}' ";

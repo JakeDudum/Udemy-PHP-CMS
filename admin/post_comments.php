@@ -33,7 +33,7 @@
                         <tbody>
                             <?php
 
-                            $query = "SELECT * FROM comments WHERE comment_post_id =" . mysqli_real_escape_string($connection, $_GET['id']) . "";
+                            $query = "SELECT * FROM comments WHERE comment_post_id =" . $_GET['id'] . "";
                             $select_comments = mysqli_query($connection, $query);
 
                             while ($row = mysqli_fetch_assoc(($select_comments))) {

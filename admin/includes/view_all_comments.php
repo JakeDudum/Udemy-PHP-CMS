@@ -56,7 +56,7 @@
 
 <?php
 
-if (isset(escape($_GET['approve']))) {
+if (isset($_GET['approve'])) {
 
     $the_comment_id = escape($_GET['approve']);
     $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_id = $the_comment_id ";
@@ -64,7 +64,7 @@ if (isset(escape($_GET['approve']))) {
     header("Location: comments.php");
 }
 
-if (isset(escape($_GET['unapprove']))) {
+if (isset($_GET['unapprove'])) {
 
     $the_comment_id = escape($_GET['unapprove']);
     $query = "UPDATE comments SET comment_status = 'unapproved' WHERE comment_id = $the_comment_id ";
@@ -72,7 +72,7 @@ if (isset(escape($_GET['unapprove']))) {
     header("Location: comments.php");
 }
 
-if (escape(isset($_GET['delete']))) {
+if (isset($_GET['delete'])) {
 
     $the_comment_id = escape($_GET['delete']);
     $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id} ";

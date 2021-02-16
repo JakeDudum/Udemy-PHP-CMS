@@ -1,5 +1,5 @@
 <?php
-if (isset(escape($_POST['create_user']))) {
+if (isset($_POST['create_user'])) {
     $username = escape($_POST['username']);
     $user_firstname = escape($_POST['user_firstname']);
     $user_lastname = escape($_POST['user_lastname']);

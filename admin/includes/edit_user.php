@@ -1,6 +1,6 @@
 <?php
 
-if (isset(escape($_GET['edit_user']))) {
+if (isset($_GET['edit_user'])) {
 
     $the_user_id = $_GET['edit_user'];
 

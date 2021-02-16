@@ -33,7 +33,7 @@
 
                         <?php //UPDATE CATEGORIES QUERY
 
-                        if (isset(escape($_GET['edit']))) {
+                        if (isset($_GET['edit'])) {
                             $cat_id = escape($_GET['edit']);
 
                             include "includes/update_categories.php";

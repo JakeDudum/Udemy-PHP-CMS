@@ -3,7 +3,7 @@
         <label for="cat-title">Edit Category</label>
         <?php
 
-        if (isset(escape($_GET['edit']))) {
+        if (isset($_GET['edit'])) {
             $cat_id = escape($_GET['edit']);
 
             $query = "SELECT * FROM categories WHERE cat_id = $cat_id ";
