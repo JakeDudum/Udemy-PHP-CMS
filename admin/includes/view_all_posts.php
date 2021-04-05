@@ -5,7 +5,7 @@ include("delete_modal.php");
 if (isset($_POST['checkBoxArray'])) {
 
     foreach ($_POST['checkBoxArray'] as $postValueId) {
-        $bulk_options = escape($_POST['bulk_options']);
+        $bulk_options = $_POST['bulk_options'];
 
         switch ($bulk_options) {
             case 'published':
