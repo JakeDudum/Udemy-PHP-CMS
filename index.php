@@ -13,6 +13,7 @@
         <div class="col-md-8">
 
             <?php
+            if (session_status() == PHP_SESSION_NONE) session_start();
 
             $per_page = 5;
 
@@ -28,7 +29,12 @@
                 $page_1 = ($page * $per_page) - $per_page;
             }
 
-            $post_query_count = "SELECT * FROM posts WHERE post_status = 'published'";
+            if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                $post_query_count = "SELECT * FROM posts";
+            } else {
+                $post_query_count = "SELECT * FROM posts WHERE post_status = 'published'";
+            }
+
             $find_count = mysqli_query($connection, $post_query_count);
             $count = mysqli_num_rows($find_count);
 
@@ -38,7 +44,12 @@
 
                 $count = ceil($count  / $per_page);
 
-                $query = "SELECT * FROM posts WHERE post_status = 'published' LIMIT $page_1, $per_page";
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    $query = "SELECT * FROM posts LIMIT $page_1, $per_page";
+                } else {
+                    $query = "SELECT * FROM posts WHERE post_status = 'published' LIMIT $page_1, $per_page";
+                }
+
                 $select_all_posts_query = mysqli_query($connection, $query);
 
                 while ($row = mysqli_fetch_assoc($select_all_posts_query)) {

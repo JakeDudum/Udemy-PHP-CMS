@@ -13,6 +13,7 @@
         <div class="col-md-8">
 
             <?php
+            if (session_status() == PHP_SESSION_NONE) session_start();
 
             if (isset($_GET['p_id'])) {
                 $the_post_id = $_GET['p_id'];

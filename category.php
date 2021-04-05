@@ -13,12 +13,18 @@
         <div class="col-md-8">
 
             <?php
+            if (session_status() == PHP_SESSION_NONE) session_start();
 
             if (isset($_GET['category'])) {
                 $post_category_id = $_GET['category'];
 
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    $query = "SELECT * FROM posts WHERE post_category_id = {$post_category_id}";
+                } else {
+                    $query = "SELECT * FROM posts WHERE post_category_id = {$post_category_id} AND post_status = 'published' ";
+                }
 
-                $query = "SELECT * FROM posts WHERE post_category_id = {$post_category_id} AND post_status = 'published' ";
+                
                 $select_all_posts_query = mysqli_query($connection, $query);
 
                 if (mysqli_num_rows($select_all_posts_query) < 1) {

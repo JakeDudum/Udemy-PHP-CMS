@@ -13,11 +13,18 @@
         <div class="col-md-8">
 
             <?php
+            if (session_status() == PHP_SESSION_NONE) session_start();
 
-            if (isset(escape($_POST['submit']))) {
-                $search = escape($_POST['search']);
+            if (isset($_POST['submit'])) {
+                $search = $_POST['search'];
 
-                $query = "SELECT * FROM posts WHERE post_tag LIKE '%$search%'";
+                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%'";
+                } else {
+                    $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' AND post_status = 'published'";
+                }
+
+                
                 $search_query = mysqli_query($connection, $query);
 
                 if (!$search_query) {
@@ -27,12 +34,12 @@
                 $count = mysqli_num_rows($search_query);
 
                 if ($count == 0) {
-                    echo "<h1>NO RESULT</h1>";
+                    echo "<h1>NO RESULTS</h1>";
                 } else {
 
                     while ($row = mysqli_fetch_assoc($search_query)) {
                         $post_title = $row['post_title'];
-                        $post_author = $row['post_author'];
+                        $post_user = $row['post_user'];
                         $post_date = $row['post_date'];
                         $post_image = $row['post_image'];
                         $post_content = $row['post_content'];
@@ -49,7 +56,7 @@
                             <a href="#"><?php echo $post_title ?></a>
                         </h2>
                         <p class="lead">
-                            by <a href="index.php"><?php echo $post_author ?></a>
+                            by <a href="index.php"><?php echo $post_user ?></a>
                         </p>
                         <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                         <hr>
