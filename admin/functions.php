@@ -1,6 +1,7 @@
 <?php
 
-function escape($string) {
+function escape($string)
+{
     global $connection;
     mysqli_real_escape_string($connection, trim($string));
 }
@@ -101,4 +102,16 @@ function deleteCategories()
         $delete_query = mysqli_query($connection, $query);
         header("Location: categories.php");
     }
+}
+
+function recordCount($table)
+{
+    global $connection;
+
+    $query = "SELECT * FROM " . $table;
+    $select_all_post = mysqli_query($connection, $query);
+    $count = mysqli_num_rows($select_all_post);
+
+    confirm($count);
+    return $count;
 }
