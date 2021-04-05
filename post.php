@@ -14,8 +14,8 @@
 
             <?php
 
-            if (isset(escape($_GET['p_id']))) {
-                $the_post_id = escape($_GET['p_id']);
+            if (isset($_GET['p_id'])) {
+                $the_post_id = $_GET['p_id'];
 
                 $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id";
                 $send_query = mysqli_query($connection, $view_query);
@@ -66,7 +66,7 @@
 
             <?php
 
-            if (isset(escape($_POST['create_comment']))) {
+            if (isset($_POST['create_comment'])) {
                 $the_post_id = escape($_GET['p_id']);
 
                 $comment_author = escape($_POST['comment_author']);
