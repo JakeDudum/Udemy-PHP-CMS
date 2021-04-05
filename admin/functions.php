@@ -115,3 +115,14 @@ function recordCount($table)
     confirm($count);
     return $count;
 }
+
+function checkStatus($table, $column, $status)
+{
+    global $connection;
+
+    $query = "SELECT * FROM $table WHERE $column = '$status'";
+    $result = mysqli_query($connection, $query);
+
+    confirm($result);
+    return mysqli_num_rows($result);
+}
