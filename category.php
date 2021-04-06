@@ -18,7 +18,7 @@
             if (isset($_GET['category'])) {
                 $post_category_id = $_GET['category'];
 
-                if (is_admin($_SESSION['username'])) {
+                if (isset($_SESSION['username']) && is_admin($_SESSION['username'])) {
                     $stmt1 = mysqli_prepare($connection, "SELECT post_id, post_title, post_user, post_date, post_image, post_content FROM posts WHERE post_category_id = ?");
                 } else {
                     $stmt2 = mysqli_prepare($connection, "SELECT post_id, post_title, post_user, post_date, post_image, post_content FROM posts WHERE post_category_id = ? AND post_status = ? ");
@@ -55,10 +55,10 @@
 
                     <!-- First Blog Post -->
                     <h2>
-                        <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
+                        <a href="post-<?php echo $post_id ?>"><?php echo $post_title ?></a>
                     </h2>
                     <p class="lead">
-                        by <a href="index.php"><?php echo $post_user ?></a>
+                        by <a href="author_posts-<?php echo $post_user ?>-<?php echo $post_id ?>"><?php echo $post_user ?></a>
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                     <hr>
