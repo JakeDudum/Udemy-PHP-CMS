@@ -8,24 +8,29 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (!empty($username) && !empty($email) && !empty($password)) {
-
-        $username = $username;
-        $email = $email;
-        $password = $password;
-
-        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
-
-        $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
-        $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
-        $register_user_query = mysqli_query($connection, $query);
-        if (!$register_user_query) {
-            die("Query Failed" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
-        }
-
-        $message = "Your Resistration has been submitted";
+    if (username_exists($username)) {
+        $message = "User Already Exists";
     } else {
-        $message = "Fields cannot be empty";
+
+        if (!empty($username) && !empty($email) && !empty($password)) {
+
+            $username = escape($username);
+            $email = escape($email);
+            $password = escape($password);
+
+            $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+            $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
+            $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
+            $register_user_query = mysqli_query($connection, $query);
+            if (!$register_user_query) {
+                die("Query Failed" . mysqli_error($connection) . ' ' . mysqli_errno($connection));
+            }
+
+            $message = "Your Resistration has been submitted";
+        } else {
+            $message = "Fields cannot be empty";
+        }
     }
 } else {
     $message = "";

@@ -127,7 +127,7 @@ function checkStatus($table, $column, $status)
     return mysqli_num_rows($result);
 }
 
-function is_admin($username = '')
+function is_admin($username)
 {
     global $connection;
 
@@ -137,7 +137,22 @@ function is_admin($username = '')
 
     $row = mysqli_fetch_array($result);
 
-    if($row['user_role'] == 'admin') {
+    if ($row['user_role'] == 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function username_exists($username)
+{
+    global $connection;
+
+    $query = "SELECT username FROM users WHERE username = '$username'";
+    $result = mysqli_query($connection, $query);
+    confirm($result);
+
+    if (mysqli_num_rows($result) > 0) {
         return true;
     } else {
         return false;
