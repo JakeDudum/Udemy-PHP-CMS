@@ -56,7 +56,7 @@
 
                     <?php
 
-                    while ($row = mysqli_fetch_assoc(($select_categories_sidebar))) {
+                    while ($row = mysqli_fetch_assoc($select_categories_sidebar)) {
                         $cat_title = $row['cat_title'];
                         $cat_id = $row['cat_id'];
 

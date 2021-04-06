@@ -137,8 +137,12 @@ function is_admin($username)
 
     $row = mysqli_fetch_array($result);
 
-    if ($row['user_role'] == 'admin') {
-        return true;
+    if (!empty($row)) {
+        if ($row['user_role'] == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
