@@ -221,6 +221,26 @@ function login_user($username, $password)
         $_SESSION['user_role'] = $db_user_role;
         header("Location: /UDEMY-PHP-CMS/admin");
     } else {
-        header("Location: /UDEMY-PHP-CMS/index.php");
+        header("Location: /UDEMY-PHP-CMS/index");
+    }
+}
+
+function ifItIsMethod($method = null) {
+    if($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+        return true;
+    }
+    return false;
+}
+
+function isLoggedIn() {
+    if(isset($_SESSION['user_role'])) {
+        return true;
+    }
+    return false;
+}
+
+function checkIfUserIsLoggedInAndRedirect($redirectLocation = null) {
+    if(isLoggedIn()) {
+        header("Location: " + $redirectLocation);
     }
 }
