@@ -15,6 +15,7 @@
             <ul class="nav navbar-nav">
 
                 <?php
+                if (session_status() == PHP_SESSION_NONE) session_start();
 
                 $query = "SELECT * FROM categories";
                 $select_all_categories_query = mysqli_query($connection, $query);
@@ -31,7 +32,7 @@
                     $registration = 'registration.php';
                     $contact = 'contact.php';
 
-                    if(isset($_GET['category']) && $_GET['category'] == $cat_id) {
+                    if (isset($_GET['category']) && $_GET['category'] == $cat_id) {
                         $category_class = 'active';
                     } else if ($pageName == $registration) {
                         $registration_class = 'active';
@@ -44,9 +45,19 @@
 
                 ?>
 
-                <li>
-                    <a href="admin">Admin</a>
-                </li>
+                <?php if (isLoggedIn()) : ?>
+                    <li>
+                        <a href="admin">Admin</a>
+                    </li>
+                    <li>
+                        <a href="includes/logout.php">Logout</a>
+                    </li>
+                <?php else : ?>
+                    <li>
+                        <a href="login">Login</a>
+                    </li>
+                <?php endif; ?>
+
                 <li class="<?php echo $registration_class; ?>">
                     <a href="registration">Resistration</a>
                 </li>
@@ -56,8 +67,8 @@
 
                 <?php
 
-                if(isset($_SESSION['user_role'])) {
-                    if(isset($_GET['p_id'])) {
+                if (isset($_SESSION['user_role'])) {
+                    if (isset($_GET['p_id'])) {
                         $the_post_id = $_GET['p_id'];
                         echo "<li><a href'admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit Post</a></li>";
                     }

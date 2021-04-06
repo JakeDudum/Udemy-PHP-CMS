@@ -211,36 +211,40 @@ function login_user($username, $password)
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
         $db_user_role = $row['user_role'];
-    }
 
-    if (password_verify($password, $db_user_password)) {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        $_SESSION['username'] = $db_username;
-        $_SESSION['firstname'] = $db_user_firstname;
-        $_SESSION['lastname'] = $db_user_lastname;
-        $_SESSION['user_role'] = $db_user_role;
-        header("Location: /UDEMY-PHP-CMS/admin");
-    } else {
-        header("Location: /UDEMY-PHP-CMS/index");
+        if (password_verify($password, $db_user_password)) {
+            if (session_status() === PHP_SESSION_NONE) session_start();
+            $_SESSION['username'] = $db_username;
+            $_SESSION['firstname'] = $db_user_firstname;
+            $_SESSION['lastname'] = $db_user_lastname;
+            $_SESSION['user_role'] = $db_user_role;
+            header("Location: /UDEMY-PHP-CMS/admin");
+        } else {
+            return false;
+        }
     }
+    return true;
 }
 
-function ifItIsMethod($method = null) {
-    if($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+function ifItIsMethod($method = null)
+{
+    if ($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
         return true;
     }
     return false;
 }
 
-function isLoggedIn() {
-    if(isset($_SESSION['user_role'])) {
+function isLoggedIn()
+{
+    if (isset($_SESSION['user_role'])) {
         return true;
     }
     return false;
 }
 
-function checkIfUserIsLoggedInAndRedirect($redirectLocation = null) {
-    if(isLoggedIn()) {
+function checkIfUserIsLoggedInAndRedirect($redirectLocation = null)
+{
+    if (isLoggedIn()) {
         header("Location: " + $redirectLocation);
     }
 }

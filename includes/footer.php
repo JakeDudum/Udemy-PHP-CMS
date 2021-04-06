@@ -1,7 +1,7 @@
 <footer>
     <div class="row">
         <div class="col-lg-12">
-            <p>Copyright &copy; Your Website 2020</p>
+            <p>Copyright &copy; PHP CMS by Jake Dudum 2020</p>
         </div>
         <!-- /.col-lg-12 -->
     </div>
