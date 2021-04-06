@@ -68,6 +68,7 @@
                     <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
             <?php endwhile;
+            mysqli_stmt_close($stmt);
             } else {
 
                 header("Location: index.php");

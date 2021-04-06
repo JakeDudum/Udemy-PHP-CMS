@@ -33,6 +33,7 @@
             if (!$stmt) {
                 die("QUERY FAILED" . mysqli_error($connection));
             }
+            mysqli_stmt_close($stmt);
 
             header("Location: categories.php");
         }
