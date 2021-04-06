@@ -158,3 +158,64 @@ function username_exists($username)
         return false;
     }
 }
+
+function email_exists($email)
+{
+    global $connection;
+
+    $query = "SELECT user_email FROM users WHERE user_email = '$email'";
+    $result = mysqli_query($connection, $query);
+    confirm($result);
+
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function register_user($username, $email, $password)
+{
+    global $connection;
+
+    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+    $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
+    $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
+    $register_user_query = mysqli_query($connection, $query);
+    confirm($register_user_query);
+}
+
+function login_user($username, $password)
+{
+    global $connection;
+
+    $username = $username;
+    $password = $password;
+
+    $query = "SELECT * FROM users WHERE username = '{$username}' ";
+    $select_user_query = mysqli_query($connection, $query);
+
+    if (!$select_user_query) {
+        die("QUERY FAILED" . mysqli_error($connection));
+    }
+
+    while ($row = mysqli_fetch_array($select_user_query)) {
+        $db_username = $row['username'];
+        $db_user_password = $row['user_password'];
+        $db_user_firstname = $row['user_firstname'];
+        $db_user_lastname = $row['user_lastname'];
+        $db_user_role = $row['user_role'];
+    }
+
+    if (password_verify($password, $db_user_password)) {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $_SESSION['username'] = $db_username;
+        $_SESSION['firstname'] = $db_user_firstname;
+        $_SESSION['lastname'] = $db_user_lastname;
+        $_SESSION['user_role'] = $db_user_role;
+        header("Location: /UDEMY-PHP-CMS/admin");
+    } else {
+        header("Location: /UDEMY-PHP-CMS/index.php");
+    }
+}
