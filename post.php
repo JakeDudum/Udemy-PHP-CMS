@@ -97,11 +97,16 @@ if (isset($_POST['unliked'])) {
                         <p><?php echo $post_content ?></p>
 
                         <?php if (isLoggedIn()) : ?>
-                        
+
                             <hr>
                             <div class="row">
                                 <p class="pull-right"><a class="<?php echo userLikedThisPost($the_post_id) ? 'unlike' : 'like' ?>" href="">
-                                        <span class="glyphicon glyphicon-thumbs-<?php echo userLikedThisPost($the_post_id) ? 'down' : 'up' ?> "></span><?php echo userLikedThisPost($the_post_id) ? ' Unlike' : ' Like' ?></a></p>
+                                        <span class="glyphicon glyphicon-thumbs-<?php echo userLikedThisPost($the_post_id) ? 'down' : 'up' ?>" 
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="<?php echo userLikedThisPost($the_post_id) ? 'I liked this before' : 'Want to Like it?'?>"
+                                        ></span>
+                                        <?php echo userLikedThisPost($the_post_id) ? ' Unlike' : ' Like' ?></a></p>
                             </div>
 
                         <?php else : ?>
@@ -221,6 +226,8 @@ if (isset($_POST['unliked'])) {
 
 <script>
     $(document).ready(function() {
+
+        $("[data-toggle='tooltip']").tooltip();
 
         let post_id = <?php echo $the_post_id; ?>;
         let user_id = <?php echo loggedInUserId(); ?>;
