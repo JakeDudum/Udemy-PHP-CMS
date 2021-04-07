@@ -4,7 +4,6 @@
 <?php
 
 require './vendor/autoload.php';
-require './classes/config.php';
 
 if (!ifItIsMethod('get') && !isset($_GET['forgot'])) {
     header('Location: index');
@@ -38,6 +37,7 @@ if (ifItIsMethod('post')) {
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = Config::SMTP_PORT;
                 $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8';
 
                 $mail->setFrom('jakedudum@gmail.com', 'Jake Dudum');
                 $mail->addAddress($email);
