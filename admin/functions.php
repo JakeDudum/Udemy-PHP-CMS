@@ -248,3 +248,12 @@ function checkIfUserIsLoggedInAndRedirect($redirectLocation = null)
         header("Location: " + $redirectLocation);
     }
 }
+
+function imagePlaceholder($image = '')
+{
+    if (!$image) {
+        return 'placeholder.png';
+    } else {
+        return $image;
+    }
+}
