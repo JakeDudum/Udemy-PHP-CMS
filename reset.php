@@ -3,20 +3,22 @@
 
 <?php
 
-// if(!isset($_GET['email']) && !isset($_GET['token'])) {
-//     header('Location: index');
-// }
+if(!isset($_GET['email']) && !isset($_GET['token'])) {
+    header('Location: index');
+}
+
+$verified = false;
 
 if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM users WHERE token = ?')) {
-    mysqli_stmt_bind_param($stmt, "s", $token);
+    mysqli_stmt_bind_param($stmt, "s", $_GET['token']);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $username, $user_email, $token);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
 
-    // if($_GET['token'] !== $token || $_GET['email'] !== $user_email) {
-
-    // }
+    if($_GET['token'] !== $token || $_GET['email'] !== $user_email) {
+        header('Location: index');
+    }
 
     if (isset($_POST['password']) && isset($_POST['confirmPassword'])) {
         if ($_POST['password'] === $_POST['confirmPassword']) {
@@ -25,14 +27,14 @@ if ($stmt = mysqli_prepare($connection, 'SELECT username, user_email, token FROM
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
             if ($stmt = mysqli_prepare($connection, "UPDATE users SET token = '', user_password = '{$hashedPassword}' WHERE user_email = ?")) {
-                mysqli_stmt_bind_param($stmt, "s", $user_email);
+                mysqli_stmt_bind_param($stmt, "s", $_GET['email']);
                 mysqli_stmt_execute($stmt);
 
                 if(mysqli_stmt_affected_rows($stmt) >= 1) {
-                    echo "Password Changed";
-                } else {
-                    echo "Password Not Changed";
+                    header("Location: login");
                 }
+
+                mysqli_stmt_close($stmt);
             }
         }
     }
