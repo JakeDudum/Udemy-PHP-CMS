@@ -242,6 +242,19 @@ function isLoggedIn()
     return false;
 }
 
+function loggedInUserId() {
+    global $connection;
+    if(isLoggedIn()) {
+        $result = mysqli_query($connection, "SELECT * FROM users WHERE username = '" . $_SESSION['username'] . "'");
+        $user = mysqli_fetch_array($result);
+
+        if(mysqli_num_rows($result) >= 1) {
+            return $user['user_id'];
+        }
+    }
+    return false;
+}
+
 function checkIfUserIsLoggedInAndRedirect($redirectLocation = null)
 {
     if (isLoggedIn()) {
