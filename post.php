@@ -21,6 +21,22 @@ if(isset($_POST['liked'])) {
     exit();
 }
 
+if(isset($_POST['unliked'])) {
+    $post_id = $_POST['post_id'];
+    $user_id = $_POST['user_id'];
+
+    $query = "SELECT * FROM posts WHERE post_id = $post_id";
+    $postResult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postResult);
+    $likes = $post['likes'];
+
+    mysqli_query($connection, "DELETE FROM likes WHERE post_id = $post_id AND user_id = $user_id");
+
+    mysqli_query($connection, "UPDATE posts SET likes = $likes-1 WHERE post_id = $post_id");
+
+    exit();
+}
+
 ?>
 
 <!-- Page Content -->
@@ -85,12 +101,14 @@ if(isset($_POST['liked'])) {
                             <p class="pull-right"><a class="like" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>Like</a></p>
                         </div>
                         <div class="row">
+                            <p class="pull-right"><a class="unlike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span>Unlike</a></p>
+                        </div>
+                        <div class="row">
                             <p class="pull-right">Likes: 10</p>
                         </div>
                         <div class="clearfix"></div>
 
                     <?php } ?>
-
 
                     <!-- Blog Comments -->
 
@@ -204,6 +222,18 @@ if(isset($_POST['liked'])) {
                 type: 'post',
                 data: {
                     'liked': 1,
+                    'post_id': post_id,
+                    'user_id': user_id
+                }
+            })
+        })
+
+        $('.unlike').click(function() {
+            $.ajax({
+                url: "post-" + post_id,
+                type: 'post',
+                data: {
+                    'unliked': 1,
                     'post_id': post_id,
                     'user_id': user_id
                 }
