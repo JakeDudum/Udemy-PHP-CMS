@@ -132,20 +132,22 @@ function is_admin($username)
 {
     global $connection;
 
-    $query = "SELECT user_role FROM users WHERE username = '$username'";
-    $result = mysqli_query($connection, $query);
-    confirm($result);
+    if (isLoggedIn()) {
+        $query = "SELECT user_role FROM users WHERE username = '$username'";
+        $result = mysqli_query($connection, $query);
+        confirm($result);
 
-    $row = mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result);
 
-    if (!empty($row)) {
-        if ($row['user_role'] == 'admin') {
-            return true;
+        if (!empty($row)) {
+            if ($row['user_role'] == 'admin') {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
-    } else {
-        return false;
     }
 }
 
@@ -206,6 +208,7 @@ function login_user($username, $password)
     }
 
     while ($row = mysqli_fetch_array($select_user_query)) {
+        $db_user_id = $row['user_id'];
         $db_username = $row['username'];
         $db_user_password = $row['user_password'];
         $db_user_firstname = $row['user_firstname'];
@@ -214,11 +217,12 @@ function login_user($username, $password)
 
         if (password_verify($password, $db_user_password)) {
             if (session_status() === PHP_SESSION_NONE) session_start();
+            $_SESSION['user_id'] = $db_user_id;
             $_SESSION['username'] = $db_username;
             $_SESSION['firstname'] = $db_user_firstname;
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
-            header("Location: /UDEMY-PHP-CMS/admin");
+            header("Location: admin");
         } else {
             return false;
         }

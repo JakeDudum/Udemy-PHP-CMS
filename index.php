@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <?php include "includes/db.php" ?>
 <?php include "includes/header.php" ?>
 
@@ -60,8 +61,6 @@
                     $post_image = $row['post_image'];
                     $post_status = $row['post_status'];
                     $post_content = substr($row['post_content'], 0, 100);
-
-
             ?>
 
                     <h1 class="page-header">
