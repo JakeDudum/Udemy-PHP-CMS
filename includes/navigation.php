@@ -70,7 +70,7 @@
                 if (isset($_SESSION['user_role'])) {
                     if (isset($_GET['p_id'])) {
                         $the_post_id = $_GET['p_id'];
-                        echo "<li><a href'admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit Post</a></li>";
+                        echo "<li><a href='admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit Post</a></li>";
                     }
                 }
                 ?>

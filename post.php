@@ -4,6 +4,23 @@
 <!-- Navigation -->
 <?php include "includes/navigation.php" ?>
 
+<?php
+
+if(isset($_POST['liked'])) {
+    $post_id = $_POST['post_id'];
+
+    $query = "SELECT * FROM posts WHERE post_id = $post_id";
+    $postResult = mysqli_query($connection, $query);
+    $post = mysqli_fetch_array($postResult);
+    $likes = $post['likes'];
+
+    if(mysqli_num_rows($postResult) >= 1) {
+        echo $post['post_id'];
+    }
+}
+
+?>
+
 <!-- Page Content -->
 <div class="container">
 
@@ -60,6 +77,15 @@
                         <img class="img-responsive" src="images/<?php echo imagePlaceholder($post_image) ?>" alt="">
                         <hr>
                         <p><?php echo $post_content ?></p>
+                        <hr>
+
+                        <div class="row">
+                            <p class="pull-right"><a class="like" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>Like</a></p>
+                        </div>
+                        <div class="row">
+                            <p class="pull-right">Likes: 10</p>
+                        </div>
+                        <div class="clearfix"></div>
 
                     <?php } ?>
 
@@ -151,7 +177,7 @@
                 header("Location: index.php");
             } ?>
         </div>
-        
+
         <!-- Blog Sidebar Widgets Column -->
         <?php include "includes/sidebar.php" ?>
 
@@ -163,3 +189,24 @@
 
 <!-- Footer -->
 <?php include "includes/footer.php" ?>
+
+<script>
+    $(document).ready(function() {
+
+        let post_id = <?php echo $the_post_id; ?>;
+        let user_id = 20
+
+        $('.like').click(function() {
+            $.ajax({
+                url: "post-" + post_id,
+                type: 'post',
+                data: {
+                    'liked': 1,
+                    'post_id': post_id,
+                    'user_id': user_id
+                }
+            })
+        })
+
+    });
+</script>
