@@ -29,8 +29,6 @@
                                     <i class="fa fa-file-text fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-
-
                                     <div class='huge'><?php echo $post_count = recordCount('posts'); ?></div>
                                     <div>Posts</div>
                                 </div>

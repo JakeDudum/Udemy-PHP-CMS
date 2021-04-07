@@ -128,6 +128,17 @@ function checkStatus($table, $column, $status)
     return mysqli_num_rows($result);
 }
 
+function checkUserStatus($table, $column, $status)
+{
+    global $connection;
+
+    $query = "SELECT * FROM $table WHERE $column = '$status' AND user_id = " . loggedInUserId() . "";
+    $result = mysqli_query($connection, $query);
+
+    confirm($result);
+    return mysqli_num_rows($result);
+}
+
 function is_admin($username)
 {
     global $connection;
