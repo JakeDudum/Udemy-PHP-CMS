@@ -6,7 +6,7 @@
 
 <?php
 
-if(isset($_POST['liked'])) {
+if (isset($_POST['liked'])) {
     $post_id = $_POST['post_id'];
     $user_id = $_POST['user_id'];
 
@@ -21,7 +21,7 @@ if(isset($_POST['liked'])) {
     exit();
 }
 
-if(isset($_POST['unliked'])) {
+if (isset($_POST['unliked'])) {
     $post_id = $_POST['post_id'];
     $user_id = $_POST['user_id'];
 
@@ -95,14 +95,25 @@ if(isset($_POST['unliked'])) {
                         <img class="img-responsive" src="images/<?php echo imagePlaceholder($post_image) ?>" alt="">
                         <hr>
                         <p><?php echo $post_content ?></p>
-                        <hr>
+
+                        <?php if (isLoggedIn()) : ?>
+                        
+                            <hr>
+                            <div class="row">
+                                <p class="pull-right"><a class="<?php echo userLikedThisPost($the_post_id) ? 'unlike' : 'like' ?>" href="">
+                                        <span class="glyphicon glyphicon-thumbs-<?php echo userLikedThisPost($the_post_id) ? 'down' : 'up' ?> "></span><?php echo userLikedThisPost($the_post_id) ? ' Unlike' : ' Like' ?></a></p>
+                            </div>
+
+                        <?php else : ?>
+
+                            <div class="row">
+                                <p class="pull-right">You need to <a href="login">Login</a> to like</p>
+                            </div>
+
+                        <?php endif; ?>
 
                         <div class="row">
-                            <p class="pull-right"><a class="<?php echo userLikedThisPost($the_post_id) ? 'unlike' : 'like' ?>" href="">
-                            <span class="glyphicon glyphicon-thumbs-<?php echo userLikedThisPost($the_post_id) ? 'down' : 'up' ?> "></span><?php echo userLikedThisPost($the_post_id) ? ' Unlike' : ' Like' ?></a></p>
-                        </div>
-                        <div class="row">
-                            <p class="pull-right">Likes: 10</p>
+                            <p class="pull-right">Likes: <?php echo getPostLikes($the_post_id); ?></p>
                         </div>
                         <div class="clearfix"></div>
 
@@ -212,7 +223,7 @@ if(isset($_POST['unliked'])) {
     $(document).ready(function() {
 
         let post_id = <?php echo $the_post_id; ?>;
-        let user_id = 20
+        let user_id = <?php echo loggedInUserId(); ?>;
 
         $('.like').click(function() {
             $.ajax({

@@ -1,7 +1,5 @@
 <?php
 
-include("delete_modal.php");
-
 if (isset($_POST['checkBoxArray'])) {
 
     foreach ($_POST['checkBoxArray'] as $postValueId) {
