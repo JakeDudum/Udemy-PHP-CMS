@@ -215,7 +215,6 @@ if (isset($_POST['unliked'])) {
         <?php include "includes/sidebar.php" ?>
 
     </div>
-</div>
 <!-- /.row -->
 
 <hr>
