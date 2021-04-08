@@ -221,6 +221,7 @@ function login_user($username, $password)
     while ($row = mysqli_fetch_array($select_user_query)) {
         $db_user_id = $row['user_id'];
         $db_username = $row['username'];
+        $db_user_email = $row['user_email'];
         $db_user_password = $row['user_password'];
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
@@ -230,6 +231,7 @@ function login_user($username, $password)
             if (session_status() === PHP_SESSION_NONE) session_start();
             $_SESSION['user_id'] = $db_user_id;
             $_SESSION['username'] = $db_username;
+            $_SESSION['user_email'] = $db_user_email;
             $_SESSION['firstname'] = $db_user_firstname;
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;

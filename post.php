@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <?php include "includes/db.php" ?>
 <?php include "includes/header.php" ?>
 
@@ -101,11 +102,7 @@ if (isset($_POST['unliked'])) {
                             <hr>
                             <div class="row">
                                 <p class="pull-right"><a class="<?php echo userLikedThisPost($the_post_id) ? 'unlike' : 'like' ?>" href="">
-                                        <span class="glyphicon glyphicon-thumbs-<?php echo userLikedThisPost($the_post_id) ? 'down' : 'up' ?>" 
-                                        data-toggle="tooltip"
-                                        data-placement="top"
-                                        title="<?php echo userLikedThisPost($the_post_id) ? 'I liked this before' : 'Want to Like it?'?>"
-                                        ></span>
+                                        <span class="glyphicon glyphicon-thumbs-<?php echo userLikedThisPost($the_post_id) ? 'down' : 'up' ?>" data-toggle="tooltip" data-placement="top" title="<?php echo userLikedThisPost($the_post_id) ? 'I liked this before' : 'Want to Like it?' ?>"></span>
                                         <?php echo userLikedThisPost($the_post_id) ? ' Unlike' : ' Like' ?></a></p>
                             </div>
 
@@ -129,11 +126,11 @@ if (isset($_POST['unliked'])) {
                     <?php
 
                     if (isset($_POST['create_comment'])) {
-                        $the_post_id = escape($_GET['p_id']);
+                        $the_post_id = $_GET['p_id'];
 
-                        $comment_author = escape($_POST['comment_author']);
-                        $comment_email = escape($_POST['comment_email']);
-                        $comment_content = escape($_POST['comment_content']);
+                        $comment_author = $_SESSION['username'];
+                        $comment_email = $_SESSION['user_email'];
+                        $comment_content = $_POST['comment_content'];
 
                         if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
 
@@ -152,27 +149,28 @@ if (isset($_POST['unliked'])) {
 
                     ?>
 
-                    <!-- Comments Form -->
-                    <div class="well">
-                        <h4>Leave a Comment:</h4>
-                        <form action="" method="post" role="form">
-                            <div class="form-group">
-                                <label for="Author">Author</label>
-                                <input type="text" class="form-control" name="comment_author">
-                            </div>
-                            <div class="form-group">
-                                <label for="Email">Email</label>
-                                <input type="email" class="form-control" name="comment_email">
-                            </div>
-                            <div class="form-group">
-                                <label for="Comment">Your Comment</label>
-                                <textarea name="comment_content" class="form-control" rows="3"></textarea>
-                            </div>
-                            <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
+                    <?php if (isLoggedIn()) : ?>
 
-                    <hr>
+                        <!-- Comments Form -->
+                        <div class="well">
+                            <h4>Leave a Comment:</h4>
+                            <form action="" method="post" role="form">
+                                <div class="form-group">
+                                    <label for="Comment">Your Comment</label>
+                                    <textarea name="comment_content" class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+
+                        <hr>
+                    <?php else : ?>
+
+                        <div class="well">
+                            <h4>Please <a href="login">Login</a> to leave a comment</h4>
+                        </div>
+
+                    <?php endif; ?>
 
                     <!-- Posted Comments -->
 

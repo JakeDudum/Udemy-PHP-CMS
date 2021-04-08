@@ -7,7 +7,7 @@ if (isset($_GET['p_id'])) {
     $query = "SELECT * FROM posts WHERE post_id = {$the_post_id}";
     $select_posts_by_id = mysqli_query($connection, $query);
 
-    while ($row = mysqli_fetch_assoc(($select_posts_by_id))) {
+    while ($row = mysqli_fetch_assoc($select_posts_by_id)) {
         $post_id = $row['post_id'];
         $post_user = $row['post_user'];
         $post_title = $row['post_title'];
@@ -19,8 +19,14 @@ if (isset($_GET['p_id'])) {
         $post_date = $row['post_date'];
     }
 
-    if (isset($_POST['update_post'])) {
+    if (isset($_POST['update_post'])) { 
         $post_user = $_POST['post_user'];
+
+        $query = "SELECT * FROM users WHERE username = '{$post_user}'";
+        $select_user_id = mysqli_query($connection, $query);
+        $result = mysqli_fetch_assoc($select_user_id);
+        $post_user_id = $result['user_id'];
+
         $post_title = $_POST['post_title'];
         $post_category_id = $_POST['post_category'];
         $post_status = $_POST['post_status'];
@@ -42,6 +48,7 @@ if (isset($_GET['p_id'])) {
 
         $query = "UPDATE posts SET ";
         $query .= "post_title = '{$post_title}', ";
+        $query .= "post_user_id = '{$post_user_id}', ";
         $query .= "post_user = '{$post_user}', ";
         $query .= "post_date = now(), ";
         $query .= "post_category_id = '{$post_category_id}', ";
