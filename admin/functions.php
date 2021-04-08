@@ -132,7 +132,12 @@ function checkUserStatus($table, $column, $status)
 {
     global $connection;
 
-    $query = "SELECT * FROM $table WHERE $column = '$status' AND user_id = " . loggedInUserId() . "";
+    if($table == 'posts') {
+        $user = 'post_user_id';
+    } else if($table == 'comments') {
+        $user = 'comment_user_id';
+    }
+    $query = "SELECT * FROM $table WHERE $column = '$status' AND $user = " . loggedInUserId() . "";
     $result = mysqli_query($connection, $query);
 
     confirm($result);

@@ -129,13 +129,14 @@ if (isset($_POST['unliked'])) {
                         $the_post_id = $_GET['p_id'];
 
                         $comment_author = $_SESSION['username'];
+                        $comment_user_id = $_SESSION['user_id'];
                         $comment_email = $_SESSION['user_email'];
                         $comment_content = $_POST['comment_content'];
 
-                        if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
+                        if (!empty($comment_content)) {
 
-                            $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                            $query .= "VALUES ($the_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now() ) ";
+                            $query = "INSERT INTO comments (comment_post_id, comment_user_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
+                            $query .= "VALUES ($the_post_id, $comment_user_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now() ) ";
 
                             $create_comment_query = mysqli_query($connection, $query);
 

@@ -92,10 +92,10 @@
 
             <?php
             
-            $post_published_count = checkStatus('posts', 'post_status', 'published');
-            $post_draft_count = checkStatus('posts', 'post_status', 'draft');
-            $unapproved_comment_count = checkStatus('comments', 'comment_status', 'unapproved');
-            $subscriber_count = checkStatus('users', 'user_role', 'subscriber');
+            $post_published_count = checkUserStatus('posts', 'post_status', 'published');
+            $post_draft_count = checkUserStatus('posts', 'post_status', 'draft');
+            $unapproved_comment_count = checkUserStatus('comments', 'comment_status', 'unapproved');
+            $approved_comment_count = checkUserStatus('comments', 'comment_status', 'approved');
 
             ?>
 
@@ -112,10 +112,10 @@
 
                             <?php
 
-                            $element_text = ['All Posts', 'Active Posts', 'Draft Posts', 'Comments', 'Pending Comments', 'Categories'];
-                            $element_count = [$post_count, $post_published_count, $post_draft_count, $comment_count, $unapproved_comment_count, $categories_count];
+                            $element_text = ['Active Posts', 'Draft Posts', 'Approved Comments', 'Pending Comments'];
+                            $element_count = [$post_published_count, $post_draft_count, $approved_comment_count, $unapproved_comment_count];
 
-                            for ($i = 0; $i < 6; $i++) {
+                            for ($i = 0; $i < 4; $i++) {
                                 echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
                             }
 
