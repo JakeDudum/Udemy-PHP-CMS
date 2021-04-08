@@ -1,18 +1,14 @@
 <?php
 
-$db['db_host'] = "localhost";
-$db['db_user'] = "root";
-$db['db_pass'] = "";
-$db['db_name'] = "cms";
+$JAWSdb_url = parse_url(getenv("JAWSDB_DATABASE_URL"));
+$JAWSdb_server = $JAWSdb_url["host"];
+$JAWSdb_username = $JAWSdb_url["user"];
+$JAWSdb_password = $JAWSdb_url["pass"];
+$JAWSdb_db = substr($JAWSdb_url["path"],1);
+$active_group = 'default';
+$query_builder = TRUE;
 
-foreach($db as $key => $value) {
-    define(strtoupper($key), $value);
-}
-
-$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-// if ($connection) {
-//     echo "We are connected.";
-// }
+// Connect to DB
+$conn = mysqli_connect($JAWSdb_server, $JAWSdb_username, $JAWSdb_password, $JAWSdb_db);
 
 ?>
