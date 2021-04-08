@@ -9,7 +9,7 @@ if (isset($_SESSION['username'])) {
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     $select_user_profile_query = mysqli_query($connection, $query);
 
-    while ($row = mysqli_fetch_assoc(($select_user_profile_query))) {
+    while ($row = mysqli_fetch_assoc($select_user_profile_query)) {
         $user_id = $row['user_id'];
         $username = $row['username'];
         $user_password = $row['user_password'];
@@ -20,11 +20,11 @@ if (isset($_SESSION['username'])) {
     }
 
     if (isset($_POST['update_user'])) {
-        $user_firstname = escape($_POST['user_firstname']);
-        $user_lastname = escape($_POST['user_lastname']);
-        $username = escape($_POST['username']);
-        $user_email = escape($_POST['user_email']);
-        $user_password = escape($_POST['user_password']);
+        $user_firstname = $_POST['user_firstname'];
+        $user_lastname = $_POST['user_lastname'];
+        $username = $_POST['username'];
+        $user_email = $_POST['user_email'];
+        $user_password = $_POST['user_password'];
 
         if (empty($user_password)) {
 
@@ -86,11 +86,11 @@ if (isset($_SESSION['username'])) {
                         </div> -->
                         <div class="form-group">
                             <label for="post_tags">Username</label>
-                            <input type="text" value=<?php echo $username; ?> class="form-control" name="username">
+                            <input type="text" value='<?php echo $username; ?>' class="form-control" name="username">
                         </div>
                         <div class="form-group">
                             <label for="post_content">Email</label>
-                            <input type="email" value=<?php echo $user_email; ?> class="form-control" name="user_email">
+                            <input type="email" value='<?php echo $user_email; ?>' class="form-control" name="user_email">
                         </div>
                         <div class="form-group">
                             <label for="post_content">Password</label>
