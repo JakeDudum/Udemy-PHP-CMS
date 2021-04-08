@@ -1,14 +1,19 @@
 <?php
 
-$JAWSdb_url = parse_url(getenv("JAWSDB_DATABASE_URL"));
-$JAWSdb_server = $JAWSdb_url["host"];
-$JAWSdb_username = $JAWSdb_url["user"];
-$JAWSdb_password = $JAWSdb_url["pass"];
-$JAWSdb_db = substr($JAWSdb_url["path"],1);
-$active_group = 'default';
-$query_builder = TRUE;
+$url = getenv('JAWSDB_URL');
+$dbparts = parse_url($url);
 
-// Connect to DB
-$conn = mysqli_connect($JAWSdb_server, $JAWSdb_username, $JAWSdb_password, $JAWSdb_db);
+$hostname = $dbparts['host'];
+$username = $dbparts['user'];
+$password = $dbparts['pass'];
+$database = ltrim($dbparts['path'],'/');
+
+$conn = mysqli_connect($hostname, $username, $password, $database);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connection was successfully established!";
 
 ?>
