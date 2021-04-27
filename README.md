@@ -12,37 +12,37 @@ https://frozen-waters-48792.herokuapp.com/
 ![Registration Page](images/README_IMAGES/Register.png)
 
 # Login
-![Login Page](images\README_IMAGES\Login.png)
+![Login Page](images/README_IMAGES/Login.png)
 
 # Contact
-![Contact Page](images\README_IMAGES\Contact.png)
+![Contact Page](images/README_IMAGES/Contact.png)
 
 # User Dashboard
-![User Dashboard Page](images\README_IMAGES\User-Dashboard.png)
+![User Dashboard Page](images/README_IMAGES/User-Dashboard.png)
 
 # Admin Dashboard
-![Admin Dashboard Page](images\README_IMAGES\Admin-Dashboard.png)
+![Admin Dashboard Page](images/README_IMAGES/Admin-Dashboard.png)
 
 # Posts
-![Posts Page](images\README_IMAGES\Posts.png)
+![Posts Page](images/README_IMAGES/Posts.png)
 
 # Add Post
-![Add Post Page](images\README_IMAGES\Add-Post.png)
+![Add Post Page](images/README_IMAGES/Add-Post.png)
 
 # Categories
-![Categories Page](images\README_IMAGES\Categories.png)
+![Categories Page](images/README_IMAGES/Categories.png)
 
 # Comments
-![Comments Page](images\README_IMAGES\Comments.png)
+![Comments Page](images/README_IMAGES/Comments.png)
 
 # Users
-![Users Page](images\README_IMAGES\Users.png)
+![Users Page](images/README_IMAGES/Users.png)
 
 # Add User
-![Add User Page](images\README_IMAGES\Add-User.png)
+![Add User Page](images/README_IMAGES/Add-User.png)
 
 # Profile
-![Profile Page](images\README_IMAGES\Profile.png)
+![Profile Page](images/README_IMAGES/Profile.png)
 
 # Built With
 - [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML)
