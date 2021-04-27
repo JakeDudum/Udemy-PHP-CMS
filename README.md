@@ -6,7 +6,7 @@ A CMS built with PHP that allows visitors to view approved posts and comments in
 https://frozen-waters-48792.herokuapp.com/
 
 # Home
-![Home Screen Landing Page](images/README_IMAGES/home.png)
+![Home Screen Landing Page](images/README_IMAGES/Home.png)
 
 # Registration
 ![Registration Page](images/README_IMAGES/Register.png)
